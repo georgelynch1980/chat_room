@@ -1,0 +1,60 @@
+@charset "utf-8";
+//按鈕 .title1 {@include link-color($hover:green);}
+@mixin link-color($text:blue,$hover:red,$size:100%){
+    color:$text;
+    cursor: pointer;
+    &:hover{color: $hover};
+    font-size: 100%;
+}
+
+//media query 由大break point至小break point
+/*
+範例
+.title1 {
+    @include bp(area-max) {
+        content:'max';
+        font-size: 72px;
+    }
+    @include bp(area-301) {
+        content:'小於1280px';
+        font-size: 48px;
+    }
+    @include bp(area-201) {
+        content:'小於980px';
+        font-size: 36px;
+    }
+    @include bp(area-101) {
+        content:'小於767px';
+        font-size: 20px;
+    }
+    @include bp(area-001) {
+        content:'小於480px';
+        font-size: 12px;
+    }
+}
+*/
+@mixin bp($point) {
+  
+    $break-point-001: "(max-width: 480px)";
+    $break-point-101: "(max-width: 767px)";
+    $break-point-201: "(max-width: 980px)";
+    $break-point-301: "(max-width: 1280px)";
+    $break-point-max: "(max-width: 9999px)";
+
+    @if $point == area-001 {
+        @media screen and #{$break-point-001}{ @content; }
+    }
+    @else if $point == area-101 {
+        @media screen and #{$break-point-101}{ @content; }
+    }
+    @else if $point == area-201 {
+        @media screen and #{$break-point-201}  { @content; }
+    }
+    @else if $point == area-301 {
+        @media screen and #{$break-point-301}  { @content; }
+    }
+    @else{
+       @media screen and #{$break-point-max}  { @content; } 
+    }
+
+}
