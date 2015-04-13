@@ -12,6 +12,12 @@ server.listen(port, function () {
     console.log('Server listening at port %d', port);
 });
 
+server.on('request', function(req, res) {
+  res.chrome.log('Hello from Node.js %s', process.version);
+  res.end('Hello World');
+});
+
+
 // Routing
 app.use(express.static(__dirname + '/public'));
 app.use(chromelogger.middleware);
