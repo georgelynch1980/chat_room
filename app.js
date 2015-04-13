@@ -12,9 +12,9 @@ server.listen(port, function () {
     console.log('Server listening at port %d', port);
 });
 
+server.on('request', chromelogger.middleware);
 server.on('request', function(req, res) {
-  res.chrome.log('Hello from Node.js %s', process.version);
-  res.end('Hello World');
+   //res.chrome.log('Hello from Node.js %s', process.version);
 });
 
 
