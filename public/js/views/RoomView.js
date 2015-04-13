@@ -1,9 +1,9 @@
 (function () {
-    APP.SomeView = Backbone.View.extend({
+    APP.RoomView = Backbone.View.extend({
         el: $("body"),
         initialize: function () {
             var _self = this;
-            console.log("SomeView!!!!!");
+            console.log("RoomView!!!!!");
         },
         events: {
             "click #top_rule": "rule",

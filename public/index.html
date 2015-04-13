@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh_TW">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Socket.IO Chat Example</title>
+    <link rel="stylesheet" href="css/home.css" type="text/css">
+    <link rel="stylesheet" href="css/all_room.css" type="text/css">
+    <link rel="stylesheet" href="css/private_room.css" type="text/css">
+    <link rel="stylesheet" href="css/question.css" type="text/css">
+    <link rel="stylesheet" href="css/user_list.css" type="text/css">
+    <link rel="stylesheet" href="css/cropper.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <!--home-->
+    <div id="home">
+        <div class="cropper-container">
+            <img id="uploadImg" class="cropper" src="img/picture-1.jpg" alt="Picture">
+        </div>
+        <label class="btn btn-primary" for="inputImage" title="Upload image file">
+            <input class="hide" id="inputImage" name="file" type="file" accept="image/*">Upload
+        </label>
+
+        <button class="btn btn-primary" id="getDataURL3" type="button">Get Data URL (160*90)</button>
+
+        <div id="showDataURL"></div>
+
+        <input id="nickname" type="text" value="我們要怎麼稱呼您呢">
+        <br>
+        <input id="age" type="text" value="age">
+        <br>
+
+        <select>
+            <option value="0">你的星座是？</option>
+            <option value="1">白羊座</option>
+            <option value="1">金牛座</option>
+            <option value="2">雙子座</option>
+            <option value="3">巨蟹座</option>
+            <option value="3">獅子座</option>
+            <option value="3">處女座</option>
+            <option value="3">天秤座</option>
+            <option value="3">天蠍座</option>
+            <option value="3">射手座</option>
+            <option value="3">魔羯座</option>
+            <option value="3">水瓶座</option>
+            <option value="3">雙魚座</option>
+        </select>
+        <br>
+        <select>
+            <option value="0">你的血型是？</option>
+            <option value="1">A</option>
+            <option value="1">B</option>
+            <option value="2">O</option>
+            <option value="3">AB</option>
+        </select>
+        <br>
+        <select>
+            <option value="居住地區">居住地區</option>
+            <option value="基隆市">基隆市</option>
+            <option value="台北市">台北市</option>
+            <option value="新北市">新北市</option>
+            <option value="宜蘭縣">宜蘭縣</option>
+            <option value="新竹市">新竹市</option>
+            <option value="新竹縣">新竹縣</option>
+            <option value="桃園縣">桃園縣</option>
+            <option value="苗栗縣">苗栗縣</option>
+            <option value="台中市">台中市</option>
+            <option value="彰化縣">彰化縣</option>
+            <option value="南投縣">南投縣</option>
+            <option value="嘉義市">嘉義市</option>
+            <option value="嘉義縣">嘉義縣</option>
+            <option value="雲林縣">雲林縣</option>
+            <option value="台南市">台南市</option>
+            <option value="高雄市">高雄市</option>
+            <option value="屏東縣">屏東縣</option>
+            <option value="台東縣">台東縣</option>
+            <option value="花蓮縣">花蓮縣</option>
+            <option value="金門縣">金門縣</option>
+            <option value="連江縣">連江縣</option>
+            <option value="澎湖縣">澎湖縣</option>
+        </select>
+        <br>
+        <input type="checkbox" value="0" checked>成人話題
+        <br>
+        <button id="startChat" type="button">開始聊天!GO</button>
+    </div>
+    <!--end of home-->
+
+    <!--all room-->
+    <div id="all_room">
+        <img src="" alt="">
+    </div>
+    <!--end of all room-->
+
+    <!--private room-->
+    <div id="private_room"></div>
+    <!--end of private room-->
+
+    <!--user list-->
+    <div id="user_list">
+        <select>
+            <option value="0">依性別排列</option>
+            <option value="1">男</option>
+            <option value="1">女</option>
+        </select>
+        <br>
+        <select>
+            <option value="0">依年齡排列</option>
+            <option value="1">國小</option>
+            <option value="1">國中</option>
+            <option value="1">高中</option>
+            <option value="1">大學生</option>
+            <option value="1">25-30</option>
+            <option value="1">31-35</option>
+            <option value="1">36-40</option>
+            <option value="1">41-50</option>
+        </select>
+        <br>
+        <select>
+            <option value="0">依星座排列</option>
+            <option value="1">白羊座</option>
+            <option value="1">金牛座</option>
+            <option value="2">雙子座</option>
+            <option value="3">巨蟹座</option>
+            <option value="3">獅子座</option>
+            <option value="3">處女座</option>
+            <option value="3">天秤座</option>
+            <option value="3">天蠍座</option>
+            <option value="3">射手座</option>
+            <option value="3">魔羯座</option>
+            <option value="3">水瓶座</option>
+            <option value="3">雙魚座</option>
+        </select>
+        <br>
+        <select>
+            <option value="0">依血型排列</option>
+            <option value="1">A</option>
+            <option value="1">B</option>
+            <option value="2">O</option>
+            <option value="3">AB</option>
+        </select>
+        <br>
+        <select>
+            <option value="0">依居住地區排列</option>
+            <option value="基隆市">基隆市</option>
+            <option value="台北市">台北市</option>
+            <option value="新北市">新北市</option>
+            <option value="宜蘭縣">宜蘭縣</option>
+            <option value="新竹市">新竹市</option>
+            <option value="新竹縣">新竹縣</option>
+            <option value="桃園縣">桃園縣</option>
+            <option value="苗栗縣">苗栗縣</option>
+            <option value="台中市">台中市</option>
+            <option value="彰化縣">彰化縣</option>
+            <option value="南投縣">南投縣</option>
+            <option value="嘉義市">嘉義市</option>
+            <option value="嘉義縣">嘉義縣</option>
+            <option value="雲林縣">雲林縣</option>
+            <option value="台南市">台南市</option>
+            <option value="高雄市">高雄市</option>
+            <option value="屏東縣">屏東縣</option>
+            <option value="台東縣">台東縣</option>
+            <option value="花蓮縣">花蓮縣</option>
+            <option value="金門縣">金門縣</option>
+            <option value="連江縣">連江縣</option>
+            <option value="澎湖縣">澎湖縣</option>
+        </select>
+        <br>
+        <select>
+            <option value="0">依進入時間</option>
+            <option value="1">新進在前</option>
+            <option value="1">新進在後</option>
+        </select>
+
+    </div>
+    <!--end of user list-->
+
+    <!--question-->
+    <div id="question">
+        <input type="text" value="q1">
+        <br>
+        <input type="text" value="q2">
+        <br>
+        <input type="text" value="q3">
+        <br>
+        <button id="setquestion" type="button">set question</button>
+    </div>
+    <!--end of question-->
+
+    <!--nav-->
+    <div id="nav">
+        
+        <ul>
+            <li>all room</li>
+            <li>private room</li>
+            <li>user list</li>
+            <li>question</li>
+        </ul>
+    </div>
+    <!--end of nav-->
+
+    <ul class="pages">
+        <li class="chat page">
+            <div class="chatArea">
+                <ul class="messages"></ul>
+            </div>
+            <input class="inputMessage" placeholder="Type here..." />
+        </li>
+        
+    </ul>
+
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery.queryloader2.js"></script>
+    <script src="js/jquery.tinyscrollbar.min.js"></script>
+    <script src="js/BaseUtil.min.js"></script>
+    <script src="js/UserAgent.js"></script>
+    <script src="js/purl.js"></script>
+    <script src="js/greensock/TweenMax.js"></script>
+    <script src="js/underscore-min.js"></script>
+    <script src="js/backbone-min.js"></script>
+    <script src="js/cropper.js"></script>
+    <script src="js/views/HomeView.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
