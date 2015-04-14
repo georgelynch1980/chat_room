@@ -10,12 +10,32 @@
             this.$inputImage = $("#inputImage"),
             this.blobURL;
             _self.fileUpload();
+            
+            APP.socket.on('ToCount', function (data) {
+                $("#count").html(data.toString);
+            });
         },
         events: {
             "click #getDataURL3": "getDataURL",
             "click #startChat": "startChat",
             "focusin #nickname": "nickNameFocusIn",
-            "focusout #nickname": "nickNameFocusOut"
+            "focusout #nickname": "nickNameFocusOut",
+            "focusout #count_btn": "count"
+        },
+        count:function(){
+             var counter = { var: 0 };
+             TweenMax.to(counter, 1, {
+                  var: 9999, 
+                  onUpdate: function () {
+                      
+                      APP.socket.emit('COUNT', {
+                          counter: Math.ceil(counter.var)
+                      });
+                      
+                      //console.log(Math.ceil(counter.var));
+                  },
+                  ease:Circ.easeOut
+              });
         },
         nickNameFocusIn: function (e) {
             if ($("#nickname").val() == "我們要怎麼稱呼您呢") $("#nickname").val("");

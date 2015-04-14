@@ -43,6 +43,15 @@ io.on('connection', function (socket) {
             message: data
         });
     });
+    
+    socket.on('new message', function (data) {
+        // we tell the client to execute 'new message'
+        socket.broadcast.emit('new message', {
+            username: socket.username,
+            message: data
+        });
+        
+    });
 
     // when the client emits 'add user', this listens and executes
     socket.on('add user', function (username) {
@@ -100,6 +109,15 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('stop typing', {
             username: socket.username
         });
+    });
+    
+    
+    socket.on('COUNT', function (counter) {
+        
+        socket.broadcast.emit('ToCount', {
+            counter: counter
+        });
+        
     });
 
     // when the user disconnects.. perform this
