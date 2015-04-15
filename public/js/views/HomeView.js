@@ -23,7 +23,7 @@
             console.log(APP)
             APP.socket.on('GET_COUNT', function (data) {
                 console.log(data);
-                $("#message").html(Math.ceil(data.count));
+                $("#message").append(Math.ceil(data.count));
             });
         },
         count: function () {
