@@ -33,7 +33,7 @@ $(document).ready(function () {
     console.log('%c 請不要這樣', styles);
 
 
-    var _homeView = new APP.HomeView();
+    
 
     var FADE_TIME = 150; // ms
     var TYPING_TIMER_LENGTH = 400; // ms
@@ -91,7 +91,6 @@ $(document).ready(function () {
                 username: username,
                 imgData: _imgData
             });
-            
             console.log("----------------------add user");
         }
     }
@@ -320,6 +319,7 @@ $(document).ready(function () {
         console.log(data);
         console.log("----------------------ok");
     });
-
-
+    
+    var _homeView = new APP.HomeView();
+    _homeView.setSocket();
 });

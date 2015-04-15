@@ -12,12 +12,6 @@ server.listen(port, function () {
     console.log('Server listening at port %d', port);
 });
 
-server.on('request', chromelogger.middleware);
-server.on('request', function(req, res) {
-   //res.chrome.log('Hello from Node.js %s', process.version);
-});
-
-
 // Routing
 app.use(express.static(__dirname + '/public'));
 app.use(chromelogger.middleware);
@@ -44,13 +38,15 @@ io.on('connection', function (socket) {
         });
     });
     
-    socket.on('new message', function (data) {
+    socket.on('COUNT', function (data) {
+        //console.log(data.count);
         // we tell the client to execute 'new message'
-        socket.broadcast.emit('new message', {
-            username: socket.username,
-            message: data
+        socket.broadcast.emit('GET_COUNT', {
+            count: data.count
         });
-        
+        socket.emit('GET_COUNT', {
+            count: data.count
+        });
     });
 
     // when the client emits 'add user', this listens and executes
@@ -109,15 +105,6 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('stop typing', {
             username: socket.username
         });
-    });
-    
-    
-    socket.on('COUNT', function (counter) {
-        
-        socket.broadcast.emit('ToCount', {
-            counter: counter
-        });
-        
     });
 
     // when the user disconnects.. perform this

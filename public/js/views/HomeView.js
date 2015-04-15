@@ -6,36 +6,40 @@
             console.log("HomeView!!!!!");
 
             this.$image = $(".cropper"),
-            this.cropper,
-            this.$inputImage = $("#inputImage"),
-            this.blobURL;
+                this.cropper,
+                this.$inputImage = $("#inputImage"),
+                this.blobURL;
             _self.fileUpload();
             
-            APP.socket.on('ToCount', function (data) {
-                $("#count").html(data.toString);
-            });
         },
         events: {
             "click #getDataURL3": "getDataURL",
             "click #startChat": "startChat",
             "focusin #nickname": "nickNameFocusIn",
             "focusout #nickname": "nickNameFocusOut",
-            "focusout #count_btn": "count"
+            "click #count_btn": "count",
         },
-        count:function(){
-             var counter = { var: 0 };
-             TweenMax.to(counter, 1, {
-                  var: 9999, 
-                  onUpdate: function () {
-                      
-                      APP.socket.emit('COUNT', {
-                          counter: Math.ceil(counter.var)
-                      });
-                      
-                      //console.log(Math.ceil(counter.var));
-                  },
-                  ease:Circ.easeOut
-              });
+        setSocket:function(){
+            console.log(APP)
+            APP.socket.on('GET_COUNT', function (data) {
+                console.log(data);
+                $("#message").html(Math.ceil(data.count));
+            });
+        },
+        count: function () {
+            var counter = {
+                var: 0
+            };
+            TweenMax.to(counter, 9999, {
+                var: 9999,
+                onUpdate: function () {
+                    
+                    APP.socket.emit('COUNT', {
+                        count: Math.ceil(counter.var)
+                    });
+                },
+                ease: Circ.easeOut
+            });
         },
         nickNameFocusIn: function (e) {
             if ($("#nickname").val() == "我們要怎麼稱呼您呢") $("#nickname").val("");
@@ -164,7 +168,7 @@
                 imgData: _self.imgData
             });
             console.log(_self.imgData);
-            $("#all_room img").attr("src",_self.imgData);
+            $("#all_room img").attr("src", _self.imgData);
             //alert("安安~幾歲住那呢？有照嗎？如果您不想聊天的話題都是這些，請加上基本資訊吧");
         },
         getDataURL: function () {
@@ -173,7 +177,7 @@
                 width: 40,
                 height: 40
             });
-            _self.imgData=dataURL;
+            _self.imgData = dataURL;
 
             //$("#showDataURL").html('<img src="' + dataURL + '">');
         }
